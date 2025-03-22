@@ -1,0 +1,24 @@
+name: PR Team Approval
+
+on:
+  pull_request_review_comment:
+    types: [created, edited, deleted] # triggers on comment creation, edit, or deletion
+
+jobs:
+  check-review-comment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check if the review comment mentions "trigger"
+        run: |
+          COMMENT_BODY="${{ github.event.comment.body }}"
+          if [[ "$COMMENT_BODY" == *"trigger"* ]]; then
+            echo "Review comment contains 'trigger', running workflow..."
+            # You can put your required workflow logic here or call another job
+          else
+            echo "Review comment does not contain 'trigger'. Skipping workflow."
+            exit 0
+          fi
