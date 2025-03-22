@@ -1,2 +1,2 @@
 # organization-workflows
-central workflow control
+Repository for central workflow control
